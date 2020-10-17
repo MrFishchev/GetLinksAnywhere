@@ -13,13 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GetLinksAnywhere\GetLinksAnywhere.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="testdata">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <ProjectReference Include="..\GetLinksAnywhere.Common\GetLinksAnywhere.Common.csproj" />
   </ItemGroup>
 
 </Project>
