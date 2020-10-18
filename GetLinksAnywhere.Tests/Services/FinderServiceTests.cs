@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using GetLinksAnywhere.Services;
 using NUnit.Framework;
@@ -33,9 +35,20 @@ namespace GetLinksAnywhere.Tests.Services
         [Test]
         public async Task FindAllLinks_DataExists_ReturnLinksList()
         {
+            var expected = new List<string>
+            {
+                "www.flickr.com",
+                "500px.com",
+                "www.freeimagehosting.net",
+                "https://postimage.io",
+                "https://www.facebook.com",
+                "http://🍕.ws"
+            };
+
             var result = await _finderService.FindAllLinks(_testData);
 
-            Assert.That(result.Count(), Is.EqualTo(6));
+            Assert.That(result.Count(), Is.EqualTo(expected.Count));
+            Assert.That(result, Is.EquivalentTo(expected));
         }
 
         private Task<string> GetTestData()

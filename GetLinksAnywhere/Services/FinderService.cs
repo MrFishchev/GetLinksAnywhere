@@ -2,8 +2,8 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using GetLinksAnywhere.Common.Classes;
 using GetLinksAnywhere.Common.Extensions;
 using GetLinksAnywhere.Model;
 using GetLinksAnywhere.Services.IServices;
@@ -30,20 +30,18 @@ namespace GetLinksAnywhere.Services
 
             Parallel.ForEach(chunks, chunk =>
             {
-                var regex = new Regex(UrlRegexPattern);
-                var matches = regex.Matches(chunk.Content);
-                var normalizedLinks = matches.Select(m => NormalizeLink(m.Value));
+                var regexData = new RegexUrlBuilder().Build();
+                var matches = regexData.Regex.Matches(chunk.Content);
+                var links = matches.Select(m => m.Value);
+
+                //TODO normalize
+                var normalizedLinks = links;
 
                 foreach (var link in normalizedLinks)
                     result.Add(link);
             });
 
             return result;
-        }
-
-        private string NormalizeLink(string link)
-        {
-            return link;
         }
     }
 }

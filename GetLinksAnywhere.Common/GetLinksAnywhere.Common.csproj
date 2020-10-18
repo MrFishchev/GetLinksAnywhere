@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="IANA\Domains" />
+    <None Remove="IANA\Schemes" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="IANA\Domains" />
+    <EmbeddedResource Include="IANA\Schemes" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\GetLinksAnywhere.Model\GetLinksAnywhere.Model.csproj" />
   </ItemGroup>
 
