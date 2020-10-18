@@ -2,6 +2,6 @@
 {
     public static class Constants
     {
-        public const int MaxLengthOfChunk = 50;
+        public const int MaxLengthOfChunk = 1000;
     }
 }

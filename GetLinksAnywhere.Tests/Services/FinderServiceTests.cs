@@ -14,6 +14,7 @@ namespace GetLinksAnywhere.Tests.Services
     {
         private FinderService _finderService;
         private string _testData;
+        private const int MaxLengthOfChunk = 100;
 
         [SetUp]
         public async Task SetUp()
@@ -42,10 +43,14 @@ namespace GetLinksAnywhere.Tests.Services
                 "www.freeimagehosting.net",
                 "https://postimage.io",
                 "https://www.facebook.com",
-                "http://🍕.ws"
+                "http://🍕.ws",
+                "http://example.com/default.asp",
+                "http://example.com/a/index.html",
+                "http://208.77.188.1",
+                "http://example.com/story?id=xyz"
             };
 
-            var result = await _finderService.FindAllLinks(_testData);
+            var result = await _finderService.FindAllLinks(_testData, MaxLengthOfChunk);
 
             Assert.That(result.Count(), Is.EqualTo(expected.Count));
             Assert.That(result, Is.EquivalentTo(expected));

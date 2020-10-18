@@ -1,3 +1,23 @@
 ﻿Visit photo hosting sites such as www.flickr.com, 500px.com, www.freeimagehosting.net and
 https://postimage.io, and upload these two image files, picture.dog.png and picture.cat.jpeg,
 there. After that share their links at https://www.facebook.com/ and http://🍕.ws 
+
+Normalization process
+There are several types of normalization that may be performed. Some of them are always semantics preserving and some may not be.
+
+Normalizations that preserve semantics
+The following normalizations are described in RFC 3986 [1] to result in equivalent URIs:
+he following normalizations result in a semantically different URI although it may refer to the same resource:
+Removing directory index. Default directory indexes are generally not needed in URIs. Examples:
+http://example.com/default.asp http://example.com/a/index.html
+However, AJAX applicat
+http://208.77.188.1/
+The reverse replacement is rarely safe due to virtual web servers.
+http://example.com/story?id=xyz
+appears in a crawl log several times along with
+
+we may assume that the two URIs are equivalent and can be normalized to one of the URI forms.
+
+Schonfeld et al. (2006) present a heuristic called DustBuster for detecting DUST (different URIs with similar text) rules that can be applied to URI lists. They showed that once the correct DUST rules were found and applied with a normalization algorithm, they were able to find up to 68% of the redundant URIs in a URI list.
+
+See also

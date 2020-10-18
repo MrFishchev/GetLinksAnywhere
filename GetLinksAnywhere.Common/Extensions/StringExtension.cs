@@ -9,7 +9,7 @@ namespace GetLinksAnywhere.Common.Extensions
     public static class StringExtension
     {
         public static Task<IEnumerable<Chunk>> SplitToChunks(this string data, 
-            int maxLengthOfChunk = Constants.MaxLengthOfChunk)
+            int maxLengthOfChunk)
         {
             if (string.IsNullOrWhiteSpace(data))
                 return Task.FromResult(Enumerable.Empty<Chunk>());
