@@ -1,0 +1,10 @@
+version: '3.3'
+services: 
+    test-links:
+        image: test:links
+        container_name: test-links
+        build: 
+            dockerfile: ./GetLinksAnywhere/Dockerfile
+            context: .
+        ports: 
+            - "5000:80"

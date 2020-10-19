@@ -21,8 +21,7 @@
     "Docker": {
       "commandName": "Docker",
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/api",
-      "publishAllPorts": true,
-      "httpPort": 5000
+      "publishAllPorts": true
     }
   }
 }
