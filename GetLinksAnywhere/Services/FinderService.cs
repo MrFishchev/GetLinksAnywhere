@@ -13,8 +13,6 @@ namespace GetLinksAnywhere.Services
 {
     public class FinderService : IFinderService
     {
-        private const string UrlRegexPattern = @"((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)";
-
         public async Task<IEnumerable<string>> FindAllLinks(string data, 
             int maxLengthOfChunk = Constants.MaxLengthOfChunk)
         {
@@ -36,14 +34,14 @@ namespace GetLinksAnywhere.Services
                 var matches = regexData.Regex.Matches(chunk.Content);
                 var links = matches.Select(m => m.Value);
 
-                //TODO normalize
-                var normalizedLinks = links;
-
-                foreach (var link in normalizedLinks)
-                    result.Add(link);
+                foreach (var link in links)
+                {
+                    if (UriNormalizer.TryNormalize(link, out var normalized))
+                        result.Add(normalized);
+                }
             });
 
-            return result;
+            return result.Distinct();
         }
     }
 }
