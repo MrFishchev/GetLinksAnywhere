@@ -39,18 +39,14 @@ namespace GetLinksAnywhere.Services
         {
             var result = new ConcurrentBag<string>();
             var regexData = new RegexUrlBuilder().Build();
-
-            var counter = 0;
             var totalCount = chunks.Count();
+            var doneChunksCount = 0;
 
             Parallel.ForEach(chunks, async chunk =>
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
                 var uriNormalizer = new UriNormalizer();
-
-                counter++;
-                _logger.LogInformation($"Processing {counter} of {totalCount}");
 
                 var matches = regexData.Regex.Matches(chunk.Content);
                 var links = matches.Select(m => m.Value);
@@ -60,11 +56,12 @@ namespace GetLinksAnywhere.Services
                     cancellationToken.ThrowIfCancellationRequested();
                     var normalized = await uriNormalizer.Normalize(link);
 
-                    if(normalized != null) 
+                    if (normalized != null)
                         result.Add(normalized);
                 }
 
-                _logger.LogInformation($"Processing done for {counter} of {totalCount}");
+                doneChunksCount++;
+                _logger.LogInformation($"Processing done for {doneChunksCount} of {totalCount}");
 
             });
 
