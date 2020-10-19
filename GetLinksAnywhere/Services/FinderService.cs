@@ -58,7 +58,7 @@ namespace GetLinksAnywhere.Services
                 foreach (var link in links)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
-                    var normalized = await uriNormalizer.TryNormalize(link);
+                    var normalized = await uriNormalizer.Normalize(link);
 
                     if(normalized != null) 
                         result.Add(normalized);

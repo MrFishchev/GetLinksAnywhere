@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GetLinksAnywhere.Common.Tests.Extensions
 {
-    [TestFixture]
+    [TestFixture]   
     public class StringExtensionTests
     {
         private const int MaxLengthOfChunk = 5;

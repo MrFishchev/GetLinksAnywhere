@@ -5,7 +5,7 @@ namespace GetLinksAnywhere.Common.Classes
 {
     public class UriNormalizer
     {
-        public Task<string> TryNormalize(string rawUri)
+        public Task<string> Normalize(string rawUri)
         {
             if (string.IsNullOrWhiteSpace(rawUri))
                 throw new ArgumentNullException();
@@ -17,7 +17,7 @@ namespace GetLinksAnywhere.Common.Classes
             }
             catch
             {
-                return null;
+                return Task.FromResult(string.Empty);
             }
         }
     }

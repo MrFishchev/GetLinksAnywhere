@@ -16,13 +16,13 @@ namespace GetLinksAnywhere.Common.Extensions
 
             return Task.Run(() =>
             {
-                var pattern = @"[a-z0-9\s\W\w\S.]{1," + maxLengthOfChunk + @"}(?=\s|,|\.|!|\?|\r|\n|$)";
+                var pattern = @"(?:(.{1," + maxLengthOfChunk + @"})(?:\s|$)|(.+?)(?:\s|$))";
 
                 var matches = Regex.Matches(data, pattern,
                     RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.ECMAScript | RegexOptions.Multiline);
                 var  chunks = matches.Select(r => r.Value);
 
-                return chunks.Select(c => new Chunk(c));
+                return chunks.Select(c => new Chunk(c.Trim()));
             });
         }
     }
