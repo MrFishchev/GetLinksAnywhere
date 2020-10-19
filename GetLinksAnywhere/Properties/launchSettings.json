@@ -12,7 +12,7 @@
     "GetLinksAnywhere": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "/",
+      "launchUrl": "api",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
@@ -20,8 +20,9 @@
     },
     "Docker": {
       "commandName": "Docker",
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/",
-      "publishAllPorts": true
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/api",
+      "publishAllPorts": true,
+      "httpPort": 5000
     }
   }
 }

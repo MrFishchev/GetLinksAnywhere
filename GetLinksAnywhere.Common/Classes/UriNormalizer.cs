@@ -1,26 +1,24 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace GetLinksAnywhere.Common.Classes
 {
-    public static class UriNormalizer
+    public class UriNormalizer
     {
-        public static bool TryNormalize(string rawUri, out string normalizedUri)
+        public Task<string> TryNormalize(string rawUri)
         {
             if (string.IsNullOrWhiteSpace(rawUri))
                 throw new ArgumentNullException();
 
-            normalizedUri = null;
             try
             {
                 var uriBuilder = new UriBuilder(rawUri);
-                normalizedUri = uriBuilder.Uri.ToString();
+                return Task.FromResult(uriBuilder.Uri.ToString());
             }
             catch
             {
-                return false;
+                return null;
             }
-
-            return true;
         }
     }
 }

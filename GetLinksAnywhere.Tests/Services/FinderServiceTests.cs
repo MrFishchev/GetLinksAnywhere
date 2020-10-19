@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using GetLinksAnywhere.Services;
+using Microsoft.Extensions.Logging.Abstractions;
 using NUnit.Framework;
 
 namespace GetLinksAnywhere.Tests.Services
@@ -13,12 +14,13 @@ namespace GetLinksAnywhere.Tests.Services
     {
         private FinderService _finderService;
         private string _testData;
-        private const int MaxLengthOfChunk = 100;
+        private const int MaxLengthOfChunk = 50;
 
         [SetUp]
         public async Task SetUp()
         {
-            _finderService = new FinderService();
+            var logger = new NullLogger<FinderService>();
+            _finderService = new FinderService(logger);
             _testData = await GetTestData();
         }
 

@@ -1,7 +1,9 @@
-﻿namespace GetLinksAnywhere.Common
+﻿using System;
+
+namespace GetLinksAnywhere.Common
 {
     public static class Constants
     {
-        public const int MaxLengthOfChunk = 1000;
+        public const int MaxLengthOfChunk = 10_000;
     }
 }
