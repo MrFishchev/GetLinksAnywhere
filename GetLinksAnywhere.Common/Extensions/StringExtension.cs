@@ -7,7 +7,13 @@ namespace GetLinksAnywhere.Common.Extensions
 {
     public static class StringExtension
     {
-        private static readonly HashSet<char> _breakChars = new HashSet<char> {',', '\r', '\n', ' ', '!'};
+        #region Fields
+
+        private static readonly HashSet<char> _breakChars = new HashSet<char> { ',', '\r', '\n', ' ', '!' };
+
+        #endregion
+
+        #region Public Methods
 
         public static Task<IEnumerable<Chunk>> SplitToChunks(this string data,
             int maxLengthOfChunk)
@@ -18,6 +24,10 @@ namespace GetLinksAnywhere.Common.Extensions
             var chunks = GetChunks(data, maxLengthOfChunk);
             return Task.FromResult(chunks);
         }
+
+        #endregion
+
+        #region Private Methods
 
         private static IEnumerable<Chunk> GetChunks(string data, int maxLength)
         {
@@ -55,5 +65,6 @@ namespace GetLinksAnywhere.Common.Extensions
             return result;
         }
 
+        #endregion
     }
 }

@@ -11,8 +11,14 @@ namespace GetLinksAnywhere.Controllers
     [ApiController]
     public class ProcessingController : ControllerBase
     {
+        #region Fields
+
         private readonly IFinderService _finderService;
         private readonly ILogger<ProcessingController> _logger;
+
+        #endregion
+
+        #region Constructor
 
         public ProcessingController(IFinderService finderService, 
             ILogger<ProcessingController> logger)
@@ -20,6 +26,10 @@ namespace GetLinksAnywhere.Controllers
             _finderService = finderService;
             _logger = logger;
         }
+
+        #endregion
+
+        #region Actions
 
         [HttpPost]
         [Consumes("text/plain")]
@@ -40,5 +50,7 @@ namespace GetLinksAnywhere.Controllers
 
             return Ok(result);
         }
+
+        #endregion
     }
 }

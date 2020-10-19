@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GetLinksAnywhere.Common
+﻿namespace GetLinksAnywhere.Common
 {
     public static class Constants
     {

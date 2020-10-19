@@ -6,12 +6,22 @@ namespace GetLinksAnywhere.Common.Classes
 {
     public class RegexUrlBuilder : IBuilder<RegexData>
     {
-        private RegexData _regexData;
+        #region Fields
+
+        private readonly RegexData _regexData;
+
+        #endregion
+
+        #region MyRegion
 
         public RegexUrlBuilder()
         {
             _regexData = new RegexData();
         }
+
+        #endregion
+
+        #region Public Methods
 
         public RegexData Build()
         {
@@ -19,6 +29,10 @@ namespace GetLinksAnywhere.Common.Classes
             _regexData.Regex = new Regex(_regexData.Pattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
             return _regexData;
         }
+
+        #endregion
+
+        #region Private Methods
 
         private string BuildPattern()
         {
@@ -30,5 +44,7 @@ namespace GetLinksAnywhere.Common.Classes
             return patternTemplate.Replace("%SCHEMES%", schemes)
                 .Replace("%DOMAINS%", domains);
         }
+
+        #endregion
     }
 }

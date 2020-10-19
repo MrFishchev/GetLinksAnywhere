@@ -15,16 +15,26 @@ namespace GetLinksAnywhere.Services
 {
     public class FinderService : IFinderService
     {
+        #region Fields
+
         private readonly ILogger<FinderService> _logger;
+
+        #endregion
+
+        #region Constructor
 
         public FinderService(ILogger<FinderService> logger)
         {
             _logger = logger;
         }
 
-        public async Task<IEnumerable<string>> FindAllLinks(string data, 
-           int maxLengthOfChunk = Constants.MaxLengthOfChunk,
-           CancellationToken cancellationToken = default(CancellationToken))
+        #endregion
+
+        #region Public Methods
+
+        public async Task<IEnumerable<string>> FindAllLinks(string data,
+            int maxLengthOfChunk = Constants.MaxLengthOfChunk,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             if (string.IsNullOrWhiteSpace(data))
                 throw new ArgumentNullException(nameof(data), "Cannot be null or empty");
@@ -35,6 +45,10 @@ namespace GetLinksAnywhere.Services
             return GetLinks(chunks, cancellationToken);
         }
 
+        #endregion
+
+        #region Private Methods
+
         private IEnumerable<string> GetLinks(IEnumerable<Chunk> chunks, CancellationToken cancellationToken)
         {
             var result = new ConcurrentBag<string>();
@@ -42,10 +56,14 @@ namespace GetLinksAnywhere.Services
             var totalCount = chunks.Count();
             var doneChunksCount = 0;
 
-            Parallel.ForEach(chunks, async chunk =>
+            var po = new ParallelOptions
             {
-                cancellationToken.ThrowIfCancellationRequested();
+                CancellationToken = cancellationToken,
+                MaxDegreeOfParallelism = System.Environment.ProcessorCount
+            };
 
+            Parallel.ForEach(chunks, po, async chunk =>
+            {
                 var uriNormalizer = new UriNormalizer();
 
                 var matches = regexData.Regex.Matches(chunk.Content);
@@ -53,7 +71,6 @@ namespace GetLinksAnywhere.Services
 
                 foreach (var link in links)
                 {
-                    cancellationToken.ThrowIfCancellationRequested();
                     var normalized = await uriNormalizer.Normalize(link);
 
                     if (normalized != null)
@@ -63,9 +80,13 @@ namespace GetLinksAnywhere.Services
                 doneChunksCount++;
                 _logger.LogInformation($"Processing done for {doneChunksCount} of {totalCount}");
 
+                po.CancellationToken.ThrowIfCancellationRequested();
             });
 
             return result.Distinct();
         }
+
+        #endregion
+
     }
 }

@@ -7,6 +7,8 @@ namespace GetLinksAnywhere.Common.Helpers
 {
     public static class EmbeddedResourceHelper
     {
+        #region Public Methods
+        
         public static Task<IEnumerable<string>> ReadDomainsSettings()
         {
             return Read("Domains");
@@ -17,6 +19,10 @@ namespace GetLinksAnywhere.Common.Helpers
             return Read("Schemes");
         }
 
+        #endregion
+
+        #region Private Methods
+
         private static Task<IEnumerable<string>> Read(string filename)
         {
             var resourceName = $"GetLinksAnywhere.Common.IANA.{filename}";
@@ -24,5 +30,7 @@ namespace GetLinksAnywhere.Common.Helpers
             return StreamHelper.ReadAllLines(() =>
                 Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName), Encoding.UTF8);
         }
+
+        #endregion
     }
 }

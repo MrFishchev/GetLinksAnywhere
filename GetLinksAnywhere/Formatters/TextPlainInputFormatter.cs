@@ -6,12 +6,22 @@ namespace GetLinksAnywhere.Formatters
 {
     public class TextPlainInputFormatter : InputFormatter
     {
+        #region Fields
+        
         private const string ContentType = "text/plain";
+
+        #endregion
+
+        #region Constructor
 
         public TextPlainInputFormatter()
         {
             SupportedMediaTypes.Add(ContentType);
         }
+
+        #endregion
+
+        #region Public Methods
 
         public override async Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context)
         {
@@ -27,5 +37,7 @@ namespace GetLinksAnywhere.Formatters
             var contentType = context.HttpContext.Request.ContentType;
             return contentType.StartsWith(ContentType);
         }
+
+        #endregion
     }
 }

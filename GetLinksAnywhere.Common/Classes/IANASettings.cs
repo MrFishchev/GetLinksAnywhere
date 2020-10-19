@@ -8,6 +8,8 @@ namespace GetLinksAnywhere.Common.Classes
     // ReSharper disable once InconsistentNaming
     public static class IANASettings
     {
+        #region Constructor
+
         static IANASettings()
         {
             var domains = EmbeddedResourceHelper.ReadDomainsSettings()
@@ -20,8 +22,14 @@ namespace GetLinksAnywhere.Common.Classes
             Schemes = new HashSet<string>(schemes.GetAwaiter().GetResult());
         }
 
+        #endregion
+
+        #region Properties
+
         public static HashSet<string> Domains { get; set; }
 
         public static HashSet<string> Schemes { get; set; }
+
+        #endregion
     }
 }
